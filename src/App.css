@@ -1,38 +1,89 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  overflow: hidden;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.container {
+  margin: 150px auto 0 auto;
+  max-width: 1200px;
+  border-top: 2px solid white;
+  padding: 20px;
+}
+.header {
+  margin: auto;
+}
+#heading {
+  color: #ef520e;
+  margin-top: 75px;
+  font-size: 40px;
+  font-weight: 900;
+}
+#search-icon {
+  width: 100px;
+  height: 100px;
+  margin-top: 50px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.search {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin: 10px auto;
+}
+#search-radius-form {
+  width: 100px;
+  margin: 0 30px;
+}
+.search-text div {
+  width: 700px;
+  margin: 0 30px;
+}
+#search-param {
+  color: #fff;
+  font-weight: 900;
+}
+#search-radius-label {
+  color: white;
+  font-weight: 900;
+  font-size: 20px;
+}
+#search-radius {
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+}
+.MuiSvgIcon-root.MuiSelect-icon {
+  color: white;
+}
+#search-radius option {
+  background: #282c34;
+}
+
+@media only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+  .header {
+    width: 30%;
   }
-  to {
-    transform: rotate(360deg);
+  #heading {
+    font-size: 20px;
+  }
+  header {
+    width: 360px;
   }
 }
