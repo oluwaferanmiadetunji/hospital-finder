@@ -78,6 +78,27 @@ code {
 #search-radius option {
   background: #282c34;
 }
+.search-results {
+  width: 80%;
+  margin: auto;
+}
+.search-results ul {
+  list-style: none;
+}
+.search-results li {
+  height: 45px;
+  cursor: pointer;
+  background: white;
+  color: black;
+}
+.search-results li svg {
+  font-size: 40px;
+  color: red;
+  background-color: white;
+}
+.search-results li p {
+  font-size: 20px;
+}
 @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
   .header {
@@ -106,7 +127,7 @@ code {
   #heading {
     margin-top: 5px;
     font-size: 25px;
-    margin-left: 50px;
+    margin-left: 60px;
   }
   #search-icon {
     width: 40px;
