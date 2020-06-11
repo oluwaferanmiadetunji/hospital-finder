@@ -24,7 +24,6 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const url = `https://discover.search.hereapi.com/v1/discover?in=circle:${latitude},${longitude};r=${radius}&q=${searchText}+hospital&limit=100&apiKey=${ACCESS_TOKEN}`;
-  console.log(url);
   const success = (position: {
     coords: { latitude: number; longitude: number; accuracy: any };
   }) => {
