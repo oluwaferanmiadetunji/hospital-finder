@@ -11,14 +11,19 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select/Select';
 import Display from './components/Display';
+import { Item } from './components/types';
 
+export interface Items {
+  results: Item[];
+}
 const App: React.FC = () => {
   const [radius, setRadius] = useState<number>(1000);
   const [searchText, setSearchText] = useState<string>('');
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
   const [accuracy, setAccuracy] = useState<unknown>(0);
-  const [result, setResult] = useState<any>([]);
+  const [result, setResult] = useState<Items>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const url = `https://discover.search.hereapi.com/v1/
 discover
@@ -47,14 +52,20 @@ discover
   };
 
   useEffect(() => {
+    setLoading(true);
     getLocation();
+    console.log(url);
     axios
       .get(url)
       .then((res) => {
-        setResult(res.data);
+        setResult(res.data.items);
+        setLoading(false);
       })
       .catch((err) => console.log(err.response.data));
-  }, [radius, searchText]);
+  }, [url]);
+
+  const props = [result, loading];
+  console.log(props);
 
   return (
     <Grid container>
@@ -119,9 +130,9 @@ discover
               />
             </div>
           </div>
-          <div className="search-results">
-            <Display {...result} />
-          </div>
+          {/* <div className="search-results">
+            <Display {...props} />
+          </div> */}
         </div>
       </div>
     </Grid>

@@ -1,0 +1,31 @@
+title: "Ayokemi Hospital and Maternity Centre".
+id: "here:pds:place:566jx7ps-360dbab4607209b55068b1cfedeb88c9",
+resultType: "place".
+address:{
+label: "Ayokemi Hospital and Maternity Centre, Lagelu, Nigeria",
+countryCode: "NGA",
+countryName: "Nigeria",
+state: "Oyo",
+county: "Lagelu",
+city: "Ibadan"}
+position{
+lat: 7.41007
+lng: 3.9466}
+access[
+{
+lat: 7.41007
+lng: 3.94659}
+distance: 722]
+categories[
+{
+id: "800-8000-0159"
+name: "Hospital"
+primary: true}
+{
+id: "800-8000-0000"
+name: "Hospital or Hea}
+references[
+{
+supplier{
+id: "core"}
+id: "1141834025"}
