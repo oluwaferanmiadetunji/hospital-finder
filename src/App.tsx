@@ -13,11 +13,19 @@ import Select from '@material-ui/core/Select/Select';
 import Display from './components/Display';
 
 const App: React.FC = () => {
-  const [radius, setRadius] = useState<number>(1);
+  const [radius, setRadius] = useState<number>(1000);
   const [searchText, setSearchText] = useState<string>('');
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
   const [accuracy, setAccuracy] = useState<unknown>(0);
+  const [result, setResult] = useState<any>([]);
+
+  const url = `https://discover.search.hereapi.com/v1/
+discover
+?in=circle:7.412481,3.940518;r=${radius}
+&q=${searchText}+hospital
+&limit=100
+&apiKey=${ACCESS_TOKEN}`;
 
   const success = (position: {
     coords: { latitude: number; longitude: number; accuracy: any };
@@ -27,7 +35,7 @@ const App: React.FC = () => {
     setAccuracy(position.coords.accuracy);
   };
   const error = () => {
-    alert('Location is not enabled');
+    console.log('Location is not enabled');
   };
   const options = {
     enableHighAccuracy: true,
@@ -37,23 +45,16 @@ const App: React.FC = () => {
   const getLocation = () => {
     navigator.geolocation.watchPosition(success, error, options);
   };
+
   useEffect(() => {
     getLocation();
-    console.log(latitude);
-    console.log(longitude);
-    console.log(accuracy);
     axios
-      .get(
-        `https://discover.search.hereapi.com/v1/
-discover
-?in=circle:7.412481,3.940518;r=10000
-&q=hospital
-&limit=100
-&apiKey=${ACCESS_TOKEN}`
-      )
-      .then((res) => console.log(res.data))
+      .get(url)
+      .then((res) => {
+        setResult(res.data);
+      })
       .catch((err) => console.log(err.response.data));
-  });
+  }, [radius, searchText]);
 
   return (
     <Grid container>
@@ -119,7 +120,7 @@ discover
             </div>
           </div>
           <div className="search-results">
-            <Display />
+            <Display {...result} />
           </div>
         </div>
       </div>
