@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
-import { ACCESS_TOKEN } from './components/constant';
+import { ACCESS_TOKEN } from './constant';
 import Grid from '@material-ui/core/Grid';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -13,6 +13,7 @@ import Select from '@material-ui/core/Select/Select';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const App = () => {
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
@@ -21,6 +22,13 @@ const App = () => {
   const [searchText, setSearchText] = useState<string>('');
   const [results, setResults] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
+
+  //   const url = `https://discover.search.hereapi.com/v1/
+  // discover
+  // ?in=circle:${longitude},${latitude};r=${radius}
+  // &q=${searchText}+hospital
+  // &limit=100
+  // &apiKey=${ACCESS_TOKEN}`;
 
   const url = `https://discover.search.hereapi.com/v1/
 discover
@@ -57,54 +65,69 @@ discover
       })
       .catch((err) => console.log(err.response.data));
   }, [url]);
-  const displayMarkup = results ? (
+  const displayMarkup = loading ? (
+    <CircularProgress
+      style={{
+        width: 100,
+        height: 100,
+        marginLeft: '30%',
+        marginTop: '30%',
+        color: 'black'
+      }}
+    />
+  ) : (
     results.map(
       (
         result: {
           title: React.ReactNode;
           distance: React.ReactNode;
           address: { county: string; city: string; state: string };
+          position: { lat: number; lng: number };
         },
         index: string | number | undefined
       ) => {
         return (
           <li key={index}>
-            <div style={{ display: 'flex' }}>
-              <LocalHospitalIcon />
-              <div className="result-title">{result.title}</div>
-            </div>
-            <div style={{ display: 'flex' }}>
-              <DirectionsWalkIcon className="small-icon" />
-              <div className="result-distance">
-                <span>{result.distance}</span> metres away
+            <a
+              href={`https://www.google.com/maps/@${result.position.lat},${result.position.lng},18z`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <div style={{ display: 'flex' }}>
+                <LocalHospitalIcon />
+                <div className="result-title">{result.title}</div>
               </div>
-            </div>
-            <div style={{ display: 'flex' }}>
-              <LocationOnIcon className="small-icon" />
-              <div className="result-address">
-                {result.address.county && (
-                  <span className="result-county">
-                    {result.address.county}, &nbsp;
-                  </span>
-                )}
-                {result.address.city && (
-                  <span className="result-city">
-                    {result.address.city}, &nbsp;
-                  </span>
-                )}
-                {result.address.state && (
-                  <span className="result-state">
-                    {result.address.state} State
-                  </span>
-                )}
+              <div style={{ display: 'flex' }}>
+                <DirectionsWalkIcon className="small-icon" />
+                <div className="result-distance">
+                  <span>{result.distance}</span> metres away
+                </div>
               </div>
-            </div>
+              <div style={{ display: 'flex' }}>
+                <LocationOnIcon className="small-icon" />
+                <div className="result-address">
+                  {result.address.county && (
+                    <span className="result-county">
+                      {result.address.county}, &nbsp;
+                    </span>
+                  )}
+                  {result.address.city && (
+                    <span className="result-city">
+                      {result.address.city}, &nbsp;
+                    </span>
+                  )}
+                  {result.address.state && (
+                    <span className="result-state">
+                      {result.address.state} State
+                    </span>
+                  )}
+                </div>
+              </div>
+            </a>
           </li>
         );
       }
     )
-  ) : (
-    <p>No data</p>
   );
   return (
     <Grid container>
@@ -163,7 +186,7 @@ discover
               />
             </div>
           </div>
-          <div className="count">Search Count: {results.length}</div>
+          <div className="count">Hospitals found: {results.length}</div>
 
           <div className="search-results">
             <ul>{displayMarkup}</ul>
