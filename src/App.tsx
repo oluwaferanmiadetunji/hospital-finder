@@ -31,21 +31,19 @@ const App: React.FC = () => {
     setLongitude(position.coords.longitude);
   };
   const error = () => {
-    console.log('Location is not enabled');
+    getLocation();
   };
   const options = {
     enableHighAccuracy: true,
     maximumAge: 0,
-    timeout: 10000
+    timeout: 5000
   };
   const getLocation = () => {
     navigator.geolocation.watchPosition(success, error, options);
   };
   useEffect(() => {
-    getLocation();
-  }, []);
-  useEffect(() => {
     setLoading(true);
+    getLocation();
     axios
       .get(url)
       .then((res) => {
@@ -81,7 +79,7 @@ const App: React.FC = () => {
             <a
               href={`https://www.google.com/maps/@${result.position.lat},${result.position.lng},18z`}
               target="_blank"
-              rel="noreferrer"
+              rel="noreferrer noopener"
             >
               <div style={{ display: 'flex' }}>
                 <LocalHospitalIcon />
@@ -128,7 +126,6 @@ const App: React.FC = () => {
             <SearchIcon id="search-icon" />
           </Toolbar>
         </AppBar>
-
         <div className="container">
           <div className="search">
             <div className="search-radius">
