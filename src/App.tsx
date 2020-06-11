@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import axios from 'axios';
 import { ACCESS_TOKEN } from './components/constant';
@@ -10,19 +10,16 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select/Select';
-import Display from './components/Display';
-import { Item } from './components/types';
-
-export interface Items {
-  results: Item[];
-}
-const App: React.FC = () => {
-  const [radius, setRadius] = useState<number>(1000);
-  const [searchText, setSearchText] = useState<string>('');
+import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
+const App = () => {
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
   const [accuracy, setAccuracy] = useState<unknown>(0);
-  const [result, setResult] = useState<Items>();
+  const [radius, setRadius] = useState<number>(1000);
+  const [searchText, setSearchText] = useState<string>('');
+  const [results, setResults] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const url = `https://discover.search.hereapi.com/v1/
@@ -31,7 +28,6 @@ discover
 &q=${searchText}+hospital
 &limit=100
 &apiKey=${ACCESS_TOKEN}`;
-
   const success = (position: {
     coords: { latitude: number; longitude: number; accuracy: any };
   }) => {
@@ -50,33 +46,70 @@ discover
   const getLocation = () => {
     navigator.geolocation.watchPosition(success, error, options);
   };
-
   useEffect(() => {
     setLoading(true);
     getLocation();
-    console.log(url);
     axios
       .get(url)
       .then((res) => {
-        setResult(res.data.items);
+        setResults(res.data.items);
         setLoading(false);
       })
       .catch((err) => console.log(err.response.data));
   }, [url]);
-
-  const props = [result, loading];
-  console.log(props);
-
+  const displayMarkup = results ? (
+    results.map(
+      (
+        result: {
+          title: React.ReactNode;
+          distance: React.ReactNode;
+          address: { county: string; city: string; state: string };
+        },
+        index: string | number | undefined
+      ) => {
+        return (
+          <li key={index}>
+            <div style={{ display: 'flex' }}>
+              <LocalHospitalIcon />
+              <div className="result-title">{result.title}</div>
+            </div>
+            <div style={{ display: 'flex' }}>
+              <DirectionsWalkIcon className="small-icon" />
+              <div className="result-distance">
+                <span>{result.distance}</span> metres away
+              </div>
+            </div>
+            <div style={{ display: 'flex' }}>
+              <LocationOnIcon className="small-icon" />
+              <div className="result-address">
+                {result.address.county && (
+                  <span className="result-county">
+                    {result.address.county}, &nbsp;
+                  </span>
+                )}
+                {result.address.city && (
+                  <span className="result-city">
+                    {result.address.city}, &nbsp;
+                  </span>
+                )}
+                {result.address.state && (
+                  <span className="result-state">
+                    {result.address.state} State
+                  </span>
+                )}
+              </div>
+            </div>
+          </li>
+        );
+      }
+    )
+  ) : (
+    <p>No data</p>
+  );
   return (
     <Grid container>
       <div className="main">
-        <AppBar
-          id="appBar"
-          position="relative"
-          color="inherit"
-          elevation={0}
-          style={{ backgroundColor: '#282c34' }}
-        >
+        <AppBar id="appBar" position="relative" color="inherit" elevation={0}>
           <Toolbar className="header">
             <h1 id="heading">Hospital Finder</h1>
             <SearchIcon id="search-icon" />
@@ -130,13 +163,14 @@ discover
               />
             </div>
           </div>
-          {/* <div className="search-results">
-            <Display {...props} />
-          </div> */}
+          <div className="count">Search Count: {results.length}</div>
+
+          <div className="search-results">
+            <ul>{displayMarkup}</ul>
+          </div>
         </div>
       </div>
     </Grid>
   );
 };
-
 export default App;
