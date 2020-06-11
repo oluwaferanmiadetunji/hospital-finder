@@ -46,9 +46,9 @@ const App: React.FC = () => {
       .get(
         `https://discover.search.hereapi.com/v1/
 discover
-?at=7.412481,3.940518
+?in=circle:7.412481,3.940518;r=10000
 &q=hospital
-&limit=10
+&limit=100
 &apiKey=${ACCESS_TOKEN}`
       )
       .then((res) => console.log(res.data))
