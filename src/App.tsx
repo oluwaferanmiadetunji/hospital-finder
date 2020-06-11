@@ -42,8 +42,11 @@ const App: React.FC = () => {
     navigator.geolocation.watchPosition(success, error, options);
   };
   useEffect(() => {
-    setLoading(true);
     getLocation();
+  }, []);
+
+  useEffect(() => {
+    setLoading(true);
     axios
       .get(url)
       .then((res) => {
