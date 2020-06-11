@@ -17,35 +17,44 @@ const App: React.FC = () => {
   const [searchText, setSearchText] = useState<string>('');
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
+  const [accuracy, setAccuracy] = useState<unknown>(0);
 
   const success = (position: {
-    coords: { latitude: number; longitude: number };
+    coords: { latitude: number; longitude: number; accuracy: any };
   }) => {
     setLatitude(position.coords.latitude);
     setLongitude(position.coords.longitude);
+    setAccuracy(position.coords.accuracy);
   };
   const error = () => {
     alert('Location is not enabled');
   };
   const options = {
     enableHighAccuracy: true,
-    maximumAge: 30000,
-    timeout: 27000
+    maximumAge: 0,
+    timeout: 10000
   };
   const getLocation = () => {
     navigator.geolocation.watchPosition(success, error, options);
   };
   useEffect(() => {
     getLocation();
-    // axios.get(
-    //   `https://api.mapbox.com/geocoding/v5/mapbox.places/hospital.json?&access_token=${process.env.REACT_APP_API_KEY}`
-    // );
-    // console.log(
-    //   `https://api.mapbox.com/geocoding/v5/mapbox.places/hospital.json?proximity=${longitude},${latitude}&access_token=${ACCESS_TOKEN}`
-    // );
     console.log(latitude);
     console.log(longitude);
+    console.log(accuracy);
+    axios
+      .get(
+        `https://discover.search.hereapi.com/v1/
+discover
+?at=7.412481,3.940518
+&q=hospital
+&limit=10
+&apiKey=${ACCESS_TOKEN}`
+      )
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err.response.data));
   });
+
   return (
     <Grid container>
       <div className="main">
