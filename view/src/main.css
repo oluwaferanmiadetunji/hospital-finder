@@ -1,0 +1,125 @@
+html,
+body {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: rgba(34, 42, 66, 0);
+  overflow: hidden;
+  color: #090226;
+  margin: 0;
+  background-size: 0 0; /* Image should not be drawn here */
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-image: url('./1.jpg');
+  background-repeat: repeat;
+}
+body::before {
+  content: ''; /* Important */
+  z-index: -1; /* Important */
+  position: inherit;
+  left: inherit;
+  top: inherit;
+  width: inherit;
+  height: inherit;
+  background-image: inherit;
+  background-size: cover;
+  filter: blur(8px);
+}
+#app-container {
+  height: 100vh;
+  width: 100vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-transform: none;
+  color: inherit;
+  text-decoration: none;
+}
+#search-history {
+  height: 500px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#results {
+  max-height: 690px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: none;
+}
+.result-title {
+  font-size: 20px;
+  font-weight: 800;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.result-distance {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+.result-distance span {
+  font-size: 20px;
+  font-weight: 800;
+}
+.result-address {
+  font-size: 18px;
+  font-weight: 800;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+#container {
+  background: none;
+  margin-top: 60px;
+}
+#search-radius-form label,
+#search-type-form label {
+  font-size: 25px;
+  font-weight: 900;
+  color: #090226;
+  margin: 10px 0;
+}
+#search-radius,
+#search-type {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 900;
+}
+#appBar {
+  height: 60px;
+  background-color: #090226;
+}
+header {
+  margin: auto;
+}
+#heading {
+  color: white;
+  margin: auto;
+  font-size: 35px;
+  font-weight: 900;
+}
+#search-icon {
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+}
+@media (max-width: 768px) {
+  #container {
+    display: block;
+  }
+  #search-history {
+    height: 150px;
+  }
+  .none {
+    display: none;
+  }
+  #results {
+    max-height: 400px;
+  }
+}
