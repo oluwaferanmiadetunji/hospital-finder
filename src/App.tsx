@@ -211,7 +211,7 @@ const App: React.FC = () => {
       }}
     />
   ) : (
-    <Paper style={{ background: 'none' }}>
+    <Paper style={{ background: 'none' }} elevation={2}>
       <Typography
         variant="h4"
         style={{
@@ -294,7 +294,7 @@ const App: React.FC = () => {
     <Grid container spacing={2} id="container">
       <Grid item xs={1} sm={1} md={1} lg={1} className="none"></Grid>
       <Grid item xs={12} sm={12} md={3} lg={3}>
-        <Paper style={{ background: 'none' }}>
+        <Paper style={{ background: 'none' }} elevation={2}>
           <Typography
             variant="h4"
             style={{
@@ -430,8 +430,6 @@ const App: React.FC = () => {
                 textAlign: 'center',
                 padding: '5px 0',
                 cursor: 'pointer',
-                fontWeight: 900,
-                fontSize: 30
               }}
             >
               Search History

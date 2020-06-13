@@ -6,12 +6,14 @@ import Toolbar from '@material-ui/core/Toolbar';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppBar id="appBar" elevation={0}>
-      <Toolbar className="header">
-        <h1 id="heading">Hospital Finder</h1>
-      </Toolbar>
-    </AppBar>
-    <App />
+    <div id="app-container">
+      <AppBar id="appBar" elevation={0}>
+        <Toolbar className="header">
+          <h1 id="heading">Hospital Finder</h1>
+        </Toolbar>
+      </AppBar>
+      <App />
+    </div>
   </React.StrictMode>,
   document.getElementById('root')
 );
