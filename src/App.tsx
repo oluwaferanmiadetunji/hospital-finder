@@ -207,16 +207,14 @@ const App: React.FC = () => {
         width: 100,
         height: 100,
         margin: '35%',
-        color: 'white',
-        backgroundColor: '#090226'
+        color: 'white'
       }}
     />
   ) : (
-    <Paper style={{ backgroundColor: '#090226' }}>
+    <Paper style={{ background: 'none' }}>
       <Typography
-        variant="h5"
+        variant="h4"
         style={{
-          backgroundColor: '#090226',
           color: 'white',
           textAlign: 'center',
           cursor: 'pointer'
@@ -224,7 +222,7 @@ const App: React.FC = () => {
       >
         Search Results
       </Typography>
-      <Card style={{ marginTop: 10 }}>
+      <Card style={{ marginTop: 10, background: 'none' }}>
         <CardContent style={{ padding: 0 }}>
           <ul id="results">
             {results.map(
@@ -296,20 +294,18 @@ const App: React.FC = () => {
     <Grid container spacing={2} id="container">
       <Grid item xs={1} sm={1} md={1} lg={1} className="none"></Grid>
       <Grid item xs={12} sm={12} md={3} lg={3}>
-        <Paper>
+        <Paper style={{ background: 'none' }}>
           <Typography
-            variant="h5"
+            variant="h4"
             style={{
-              backgroundColor: '#090226',
               color: 'white',
               textAlign: 'center',
               cursor: 'pointer'
             }}
           >
             Search
-            <hr />
           </Typography>
-          <Card style={{ marginBottom: 20 }}>
+          <Card style={{ marginBottom: 20, marginTop: 10 }}>
             <form noValidate onSubmit={handleSubmit}>
               <div style={{ display: 'flex', marginBottom: 20 }}>
                 <Grid
@@ -425,20 +421,25 @@ const App: React.FC = () => {
               </Grid>
             </form>
           </Card>
-          <Card>
+          <Card style={{ background: 'none' }}>
             <Typography
-              variant="h5"
+              variant="h4"
               style={{
-                backgroundColor: '#090226',
+                background: 'none',
                 color: 'white',
                 textAlign: 'center',
-                padding: '10px 0',
-                cursor: 'pointer'
+                padding: '5px 0',
+                cursor: 'pointer',
+                fontWeight: 900,
+                fontSize: 30
               }}
             >
               Search History
             </Typography>
-            <CardContent style={{ padding: 0 }} id="search-history">
+            <CardContent
+              style={{ padding: 0, background: 'white' }}
+              id="search-history"
+            >
               <ul>{recentSearchmarkup}</ul>
             </CardContent>
           </Card>

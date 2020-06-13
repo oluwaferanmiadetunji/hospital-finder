@@ -6,7 +6,8 @@ html {
   -ms-overflow-style: scrollbar;
   -webkit-tap-highlight-color: rgba(34, 42, 66, 0);
   overflow-x: hidden;
-  background-color: #090226;
+  /* background-color: #090226; */
+  background: url('./1.jpg');
   color: #090226;
 }
 ul {
@@ -28,7 +29,7 @@ a {
   max-height: 690px;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #090226;
+  background: none;
 }
 .result-title {
   font-size: 20px;
@@ -49,6 +50,41 @@ a {
   font-weight: 800;
   margin-top: 5px;
   margin-left: 5px;
+}
+#container {
+  background: none;
+  margin-top: 60px;
+}
+#search-radius-form label,
+#search-type-form label {
+  font-size: 25px;
+  font-weight: 900;
+  color: #090226;
+  margin: 10px 0;
+}
+#search-radius,
+#search-type {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 900;
+}
+#appBar {
+  height: 60px;
+  background-color: #090226;
+}
+header {
+  margin: auto;
+}
+#heading {
+  color: white;
+  margin: auto;
+  font-size: 35px;
+  font-weight: 900;
+}
+#search-icon {
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
 }
 @media (max-width: 768px) {
   #container {
