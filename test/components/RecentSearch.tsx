@@ -16,7 +16,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
 import Backdrop from '@material-ui/core/Backdrop';
-import { BASE_URL } from './constant';
+import { BASE_URL } from '../../src/constant';
 
 export const RecentSearch: React.FC = () => {
   const [results, setResults] = useState<any>([]);

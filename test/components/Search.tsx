@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import './Search.css';
 import axios from 'axios';
-import { ACCESS_TOKEN, BASE_URL } from './constant';
+import { ACCESS_TOKEN, BASE_URL } from '../../src/constant';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import FormControl from '@material-ui/core/FormControl';
