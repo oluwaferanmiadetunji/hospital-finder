@@ -15,6 +15,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DirectionsWalkIcon from '@material-ui/icons/DirectionsWalk';
+import Backdrop from '@material-ui/core/Backdrop';
 import { BASE_URL } from './constant';
 
 export const RecentSearch: React.FC = () => {
@@ -33,6 +34,7 @@ export const RecentSearch: React.FC = () => {
       .catch((err) => {
         console.log(err);
         setResults([]);
+        console.log(err.response.code);
         getSearchHistory();
       });
   };

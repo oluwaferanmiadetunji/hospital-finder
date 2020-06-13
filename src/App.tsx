@@ -29,8 +29,8 @@ const App: React.FC = () => {
   };
   useEffect(() => {
     getLocation();
-  });
-
+    console.log(`Latitude: ${latitude}, Longitude:${longitude}`);
+  }, [latitude, longitude]);
   return (
     <Grid container>
       <AppBar id="appBar" color="inherit" elevation={0}>
