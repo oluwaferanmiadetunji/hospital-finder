@@ -31,16 +31,20 @@ export const Search: React.FC<Props> = ({ coordinate }) => {
   const [type, setType] = useState<string>('hospital');
   const url = `https://discover.search.hereapi.com/v1/discover?in=circle:${latitude},${longitude};r=${radius}&q=${searchText}+${type}&limit=100&apiKey=${ACCESS_TOKEN}`;
   const [results, setResults] = useState<any>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [typeLabel, setTypeLabel] = useState<string>('');
-  let searchType;
-  if (typeLabel === 'hospital') searchType = 'Hospitals';
+  let searchType = 'Hospitals';
+  if (typeLabel === 'hospital') searchType = 'Hospital';
   else if (typeLabel === 'clinic') searchType = 'Clinics';
   else if (typeLabel === 'pharmacy') searchType = 'Pharmacies';
   else if (typeLabel === 'medical') searchType = 'Medical Offices';
 
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    const data = {
+      text: `${searchText} ${searchType}`,
+      url: url
+    };
     setLoading(true);
     setTypeLabel(type);
     setResults([]);
@@ -55,7 +59,30 @@ export const Search: React.FC<Props> = ({ coordinate }) => {
         setResults([]);
         console.log(err);
       });
+
+    axios
+      .post(`${BASE_URL}/search`, data)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
   };
+
+  const getCurrentData = () => {
+    axios
+      .get(url)
+      .then((res) => {
+        setResults(res.data.items);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        setResults([]);
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getCurrentData();
+  }, [latitude, longitude]);
+
   const displayMarkup = loading ? (
     <CircularProgress
       style={{
