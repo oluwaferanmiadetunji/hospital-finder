@@ -33,23 +33,20 @@ export const RecentSearch: React.FC = () => {
       .catch((err) => {
         console.log(err);
         setResults([]);
-        setLoading(false);
+        getSearchHistory();
       });
   };
 
   const see = (index: string) => {
-    setLoading(true);
     setSearchIndex(index);
     axios
       .get(index)
       .then((res) => {
         setSearchResults(res.data.items);
-        setLoading(false);
         setOpen(true);
       })
       .catch((err) => {
         setResults([]);
-        setLoading(false);
         setOpen(true);
         console.log(err);
       });
@@ -65,7 +62,7 @@ export const RecentSearch: React.FC = () => {
         width: 100,
         height: 100,
         marginLeft: '40%',
-        marginTop: '40%',
+        marginTop: '25%',
         color: 'black'
       }}
     />
@@ -164,8 +161,17 @@ export const RecentSearch: React.FC = () => {
   );
   return (
     <Grid item xs={12} id="recent-search-panel">
-      <h2 className="heading">Search History</h2>
-      <hr />
+      <div
+        style={{
+          backgroundColor: '#090226',
+          color: 'white',
+          height: 40,
+          marginTop: -20
+        }}
+      >
+        <h2 style={{ paddingTop: 5, textAlign: 'center' }}>Search History</h2>
+      </div>
+
       <Paper style={{ backgroundColor: 'ghostwhite' }} elevation={2}>
         <div className="search-history">
           <ul>{resultsMarkup}</ul>

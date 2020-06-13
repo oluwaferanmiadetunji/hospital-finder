@@ -42,7 +42,7 @@ export const Search: React.FC<Props> = ({ coordinate }) => {
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     const data = {
-      text: `${searchText} ${searchType}`,
+      text: `${searchText} ${type}`,
       url: url
     };
     setLoading(true);
@@ -88,8 +88,8 @@ export const Search: React.FC<Props> = ({ coordinate }) => {
       style={{
         width: 100,
         height: 100,
-        marginLeft: '30%',
-        marginTop: '30%',
+        marginLeft: '40%',
+        marginTop: '20%',
         color: 'black'
       }}
     />
@@ -239,15 +239,11 @@ export const Search: React.FC<Props> = ({ coordinate }) => {
             />
           </Grid>
         </Grid>
-        <hr />
 
         {results.length > 0 && (
-          <>
-            <div className="count">
-              {results.length} {searchType} found
-            </div>
-            <hr />
-          </>
+          <div className="count">
+            {results.length} {searchType} found
+          </div>
         )}
 
         <Grid
