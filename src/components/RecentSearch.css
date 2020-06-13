@@ -1,0 +1,88 @@
+#recent-search-panel {
+  height: 100%;
+}
+.search-history {
+  background-color: white;
+  height: 620px;
+  overflow: auto;
+}
+.search-history ul {
+  margin: 0;
+  padding: 0;
+}
+.search-history ul li {
+  margin-bottom: 10px;
+}
+.heading {
+  text-align: center;
+}
+
+.icon {
+  margin-left: 10px;
+  color: red;
+}
+.date,
+.text {
+  font-size: 18px;
+  font-weight: 900;
+  margin-left: 7px;
+  margin-top: 3px;
+}
+#text-info {
+  display: flex;
+  margin: 10px 0;
+  border-left: 1px solid black;
+}
+#date-info {
+  display: flex;
+  margin: 10px 0;
+}
+#container {
+  cursor: pointer;
+}
+#search-container {
+  height: 500px;
+  margin: auto;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+#search-card {
+  background-color: ghostwhite;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+.result-title,
+.result-distance,
+.result-address {
+  margin-top: 3px;
+}
+@media (max-width: 768px) {
+  .date,
+  .text {
+    font-size: 16px;
+    font-weight: 900;
+    margin-left: 10px;
+  }
+  #text-info {
+    display: flex;
+    margin: 5px 0;
+    border-left: 0;
+  }
+  #date-info {
+    display: flex;
+    margin: 5px 0;
+  }
+  #recent-search-panel {
+    height: 500px;
+  }
+  .search-history {
+    background-color: white;
+    height: 450px;
+  }
+  .MuiPaper-root.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthMd.MuiDialog-paperFullWidth.MuiPaper-elevation24.MuiPaper-rounded {
+    margin: 32px 0;
+    width: 100%;
+  }
+}
