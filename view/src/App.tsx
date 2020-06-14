@@ -224,6 +224,17 @@ const App: React.FC = () => {
       </Typography>
       <Card style={{ marginTop: 10, background: 'none' }}>
         <CardContent style={{ padding: 0 }}>
+          <Typography
+            variant="h6"
+            style={{
+              color: 'white',
+              textAlign: 'center',
+              cursor: 'pointer'
+            }}
+          >
+            Search count: {results.length}
+          </Typography>
+
           <ul id="results">
             {results.map(
               (
@@ -429,7 +440,7 @@ const App: React.FC = () => {
                 color: 'white',
                 textAlign: 'center',
                 padding: '5px 0',
-                cursor: 'pointer',
+                cursor: 'pointer'
               }}
             >
               Search History
