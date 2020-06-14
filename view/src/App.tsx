@@ -50,8 +50,13 @@ const App: React.FC = () => {
 
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
+    let typeValue;
+    if (type === 'hospital') typeValue = 'Hospital';
+    else if (type === 'pharmacy') typeValue = 'Pharmacy';
+    else if (type === 'clinic') typeValue = 'Clinic';
+    else if (type === 'medical') typeValue = 'Medical Office';
     const data = {
-      text: `${searchText} ${type}`,
+      text: `${searchText} ${typeValue}`,
       url: url
     };
     setLoading(true);
@@ -138,7 +143,7 @@ const App: React.FC = () => {
                     marginLeft: 5,
                     fontSize: 18,
                     fontWeight: 800,
-                    color: '#090226'
+                    color: 'black'
                   }}
                 >
                   {dayjs(result.createdAt).format('MMMM DD, YYYY hh:mm a')}
@@ -163,7 +168,7 @@ const App: React.FC = () => {
                     fontSize: 18,
                     marginTop: 5,
                     fontWeight: 800,
-                    color: '#090226'
+                    color: 'black'
                   }}
                 >
                   {result.text}
@@ -199,7 +204,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     getSearchHistory();
-  }, []);
+  }, [results]);
 
   const searchResultsMarkup = loading ? (
     <CircularProgress
@@ -212,28 +217,10 @@ const App: React.FC = () => {
     />
   ) : (
     <Paper style={{ background: 'none' }} elevation={2}>
-      <Typography
-        variant="h4"
-        style={{
-          color: 'white',
-          textAlign: 'center',
-          cursor: 'pointer'
-        }}
-      >
-        Search Results
-      </Typography>
+      <Typography id="results-heading">Search Results</Typography>
       <Card style={{ marginTop: 10, background: 'none' }}>
         <CardContent style={{ padding: 0 }}>
-          <Typography
-            variant="h6"
-            style={{
-              color: 'white',
-              textAlign: 'center',
-              cursor: 'pointer'
-            }}
-          >
-            Search count: {results.length}
-          </Typography>
+          <Typography id="results-count">{results.length} found</Typography>
 
           <ul id="results">
             {results.map(
@@ -306,16 +293,7 @@ const App: React.FC = () => {
       <Grid item xs={1} sm={1} md={1} lg={1} className="none"></Grid>
       <Grid item xs={12} sm={12} md={3} lg={3}>
         <Paper style={{ background: 'none' }} elevation={2}>
-          <Typography
-            variant="h4"
-            style={{
-              color: 'white',
-              textAlign: 'center',
-              cursor: 'pointer'
-            }}
-          >
-            Search
-          </Typography>
+          <Typography id="search-heading">Search</Typography>
           <Card style={{ marginBottom: 20, marginTop: 10 }}>
             <form noValidate onSubmit={handleSubmit}>
               <div style={{ display: 'flex', marginBottom: 20 }}>
@@ -424,7 +402,7 @@ const App: React.FC = () => {
                     right: 0,
                     width: 40,
                     height: 40,
-                    backgroundColor: '#090226',
+                    backgroundColor: 'black',
                     color: 'white',
                     cursor: 'pointer'
                   }}
@@ -433,18 +411,7 @@ const App: React.FC = () => {
             </form>
           </Card>
           <Card style={{ background: 'none' }}>
-            <Typography
-              variant="h4"
-              style={{
-                background: 'none',
-                color: 'white',
-                textAlign: 'center',
-                padding: '5px 0',
-                cursor: 'pointer'
-              }}
-            >
-              Search History
-            </Typography>
+            <Typography id="search-history-heading">Search History</Typography>
             <CardContent
               style={{ padding: 0, background: 'white' }}
               id="search-history"
