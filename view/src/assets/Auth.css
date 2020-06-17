@@ -1,0 +1,42 @@
+#login-card {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  background: transparent;
+  text-align: center;
+  padding-bottom: 20px;
+}
+.sign-in {
+  color: ghostwhite;
+  background-color: midnightblue;
+  font-size: 25px;
+  font-weight: 900;
+  text-align: center;
+  margin: 20px;
+  padding: 10px;
+}
+.login-form {
+  width: 80%;
+  margin: 20px auto;
+}
+.form {
+  background-color: ghostwhite;
+}
+.textField {
+  margin-bottom: 20px;
+}
+.MuiInputBase-input.MuiOutlinedInput-input.MuiInputBase-inputMarginDense.MuiOutlinedInput-inputMarginDense {
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+}
+.PrivateNotchedOutline-root-1.MuiOutlinedInput-notchedOutline,
+.MuiOutlinedInput-root.Mui-focused.MuiOutlinedInput-notchedOutline {
+  border-color: white;
+}
+@media (max-width: 768px) {
+  #login-card {
+    display: block;
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+}

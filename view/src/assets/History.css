@@ -1,0 +1,17 @@
+#search-history {
+  background: none;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  margin-top: 10px;
+  text-align: center;
+}
+#history-panel {
+  max-height: 50vh;
+  overflow: auto;
+}
+
+@media (max-width: 768px) {
+  #history-panel {
+    max-height: 30vh;
+  }
+}

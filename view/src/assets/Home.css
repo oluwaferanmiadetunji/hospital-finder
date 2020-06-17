@@ -1,0 +1,50 @@
+#search-head {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
+  margin: 20px auto;
+  padding: 10px;
+}
+#search-panel {
+  max-height: 80vh;
+}
+#search-form {
+  background: none;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  margin-top: 10px;
+  text-align: center;
+}
+.MuiSvgIcon-root.MuiSelect-icon {
+  color: white;
+  margin-top: 10px;
+}
+#search-radius-label,
+#search-type-label {
+  color: white;
+  font-size: 25px;
+  font-weight: 900;
+}
+#search-radius,
+#search-type {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 900;
+  color: white;
+}
+#search-radius option,
+#search-type option {
+  background: midnightblue;
+}
+@media (max-width: 768px) {
+  #search-panel {
+    max-height: 40vh;
+  }
+  #search-head {
+    font-size: 20px;
+    font-weight: 900;
+    margin: 0 auto;
+    padding: 5px;
+  }
+}
