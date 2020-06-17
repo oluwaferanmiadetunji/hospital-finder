@@ -9,7 +9,30 @@
   max-height: 50vh;
   overflow: auto;
 }
+#history-head {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
+  margin: 20px auto;
+  padding: 10px;
+}
+#singleHistory {
+  margin-bottom: 10px;
+  background: none;
+  padding: 10px;
+  text-align: left;
+}
 
+.history-text,
+.history-date {
+  margin-top: 10px;
+  font-size: 20px;
+  color: white;
+  font-weight: 900;
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
 @media (max-width: 768px) {
   #history-panel {
     max-height: 30vh;

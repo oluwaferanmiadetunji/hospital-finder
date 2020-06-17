@@ -32,6 +32,14 @@
   margin: auto;
   color: white;
 }
+#results-head {
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
+  margin: 20px auto;
+  padding: 10px;
+}
 
 @media (max-width: 768px) {
   .result-title,

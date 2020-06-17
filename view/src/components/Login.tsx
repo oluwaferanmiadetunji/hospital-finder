@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import '../assets/Auth.css';
+// Material UI
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+// redux
 import { loginUser } from '../redux/actions/userActions';
 
 interface RootState {
@@ -22,14 +24,16 @@ const Login: React.FC = () => {
   const dispatch = useDispatch();
   const UI = useSelector((state: RootState) => state.UI);
 
-  useEffect(() => {
-    setErrors(UI.errors);
-  }, [UI]);
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     const userData = { email, password };
     dispatch(loginUser(userData, history));
   };
+
+  useEffect(() => {
+    setErrors(UI.errors);
+  }, [UI]);
+
   let ButtonText = UI.loading ? 'Connecting...' : 'Login';
   return (
     <Grid container spacing={2} id="container">
@@ -65,6 +69,11 @@ const Login: React.FC = () => {
               helperText={errors.password}
               autoComplete="current-password"
             />
+            {errors.general && (
+              <Typography variant="body1" style={{ color: 'red', marginBottom: 10 }}>
+                {errors.general}
+              </Typography>
+            )}
             <Button
               style={{
                 background: 'midnightblue',

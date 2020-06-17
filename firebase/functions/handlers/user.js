@@ -51,7 +51,7 @@ exports.signup = (req, res) => {
 		.then(() => {
 			return res.status(201).json({
 				token: token,
-				message: 'User created successfully',
+				email: newUser.email,
 			});
 		})
 		.catch((err) => {
@@ -84,7 +84,7 @@ exports.login = (req, res) => {
 			return data.user.getIdToken();
 		})
 		.then((token) => {
-			return res.json({ token });
+			return res.json({ token: token, email: user.email });
 		})
 		.catch((err) => {
 			console.log(err);

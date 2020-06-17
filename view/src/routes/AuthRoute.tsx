@@ -1,17 +1,23 @@
-import React from 'react';
+import * as React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router';
-import { connect } from 'react-redux';
 
-export interface IPrivateRouteProps extends RouteProps {
-  authenticated: boolean;
+export interface AuthRouteProps extends RouteProps {
+  isAuthenticated: boolean;
+  authenticationPath: string;
 }
 
-const AuthRoute: React.FC<IPrivateRouteProps> = (props) => {
-  return props.authenticated ? <Redirect to="/" /> : <Route {...props} component={props.component} render={undefined} />;
-};
+export class AuthRoute extends Route<AuthRouteProps> {
+  public render() {
+    let redirectPath: string = '';
+    if (!this.props.isAuthenticated) {
+      redirectPath = this.props.authenticationPath;
+    }
 
-const mapStateToProps = (state: { user: { authenticated: any } }) => ({
-  authenticated: state.user.authenticated
-});
-
-export default connect(mapStateToProps)(AuthRoute);
+    if (redirectPath) {
+      const renderComponent = () => <Redirect to={{ pathname: redirectPath }} />;
+      return <Route {...this.props} component={renderComponent} render={undefined} />;
+    } else {
+      return <Route {...this.props} />;
+    }
+  }
+}

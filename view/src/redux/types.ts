@@ -8,6 +8,9 @@ export const SET_ERRORS = 'SET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const LOADING = 'LOADING';
 export const STOP_LOADING = 'STOP_LOADING';
+export const RESULTS_LOADING = 'RESULTS_LOADING';
+export const STOP_RESULTS_LOADING = 'STOP_RESULTS_LOADING';
 // Data reducer
 export const SET_RESULT = 'SET_RESULT';
 export const ADD_HISTORY = 'ADD_HISTORY';
+export const SET_HISTORY = 'SET_HISTORY';

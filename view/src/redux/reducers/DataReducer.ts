@@ -1,7 +1,7 @@
-import { SET_RESULT, ADD_HISTORY } from '../types';
+import { SET_RESULT, ADD_HISTORY, SET_HISTORY } from '../types';
 const initialState = {
   results: [],
-  history: {}
+  history: []
 };
 export default function (state = initialState, action: any) {
   switch (action.type) {
@@ -10,10 +10,15 @@ export default function (state = initialState, action: any) {
         ...state,
         results: [...action.payload]
       };
-    case ADD_HISTORY:
+    case SET_HISTORY:
       return {
         ...state,
         history: action.payload
+      };
+    case ADD_HISTORY:
+      return {
+        ...state,
+        history: [...action.payload, ...state.history]
       };
     default:
       return state;

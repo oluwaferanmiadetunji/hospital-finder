@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../assets/Home.css';
 import Results from './Results';
+// Material UI
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Card from '@material-ui/core/Card';
@@ -11,6 +12,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select/Select';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
+
 import { getLocation } from '../redux/actions/userActions';
 import { getResult } from '../redux/actions/DataActions';
 
@@ -25,6 +27,7 @@ const Home: React.FC = () => {
   const latitude = useSelector((state: RootState) => state.user.coordinates.latitude);
   const longitude = useSelector((state: RootState) => state.user.coordinates.longitude);
   const dispatch = useDispatch();
+  
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     const data = { radius, type, searchText, latitude, longitude };
@@ -32,13 +35,13 @@ const Home: React.FC = () => {
   };
   useEffect(() => {
     dispatch(getLocation());
-  }, []);
+  }, [dispatch]);
   return (
     <Grid container spacing={2} id="container">
       <Grid item xs={1} sm={1} md={1} lg={1} className="none"></Grid>
       <Grid item xs={12} sm={12} md={3} lg={3} id="search-panel">
         <Typography variant="h5" id="search-head">
-          Search for nearest medical facilities
+          Search for Medical facilities
           <hr />
         </Typography>
 

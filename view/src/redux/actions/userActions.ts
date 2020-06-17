@@ -1,21 +1,15 @@
 //in useActions.ts file
-import {
-  SET_AUTHENTICATED,
-  SET_UNAUTHENTICATED,
-  SET_ERRORS,
-  LOADING,
-  STOP_LOADING,
-  CLEAR_ERRORS,
-  SET_COORDINATES
-} from '../types';
+import { SET_AUTHENTICATED, SET_UNAUTHENTICATED, SET_ERRORS, LOADING, STOP_LOADING, CLEAR_ERRORS, SET_COORDINATES } from '../types';
 import axios from 'axios';
+
+// user sign in
 export const loginUser = (userData: any, history: any) => (dispatch: any) => {
   dispatch({ type: LOADING });
   axios
     .post('/login', userData)
     .then((res) => {
       setAuthorizationHeader(res.data.token);
-      dispatch({ type: SET_AUTHENTICATED });
+      dispatch({ type: SET_AUTHENTICATED, payload: res.data.email });
       dispatch({ type: CLEAR_ERRORS });
       dispatch({ type: STOP_LOADING });
       history.push('/');
@@ -30,15 +24,14 @@ export const loginUser = (userData: any, history: any) => (dispatch: any) => {
     });
 };
 
-export const registerUser = (userData: any, history: any) => (
-  dispatch: any
-) => {
+// user registration
+export const registerUser = (userData: any, history: any) => (dispatch: any) => {
   dispatch({ type: LOADING });
   axios
     .post('/signup', userData)
     .then((res) => {
       setAuthorizationHeader(res.data.token);
-      dispatch({ type: SET_AUTHENTICATED });
+      dispatch({ type: SET_AUTHENTICATED, payload: res.data.email });
       dispatch({ type: CLEAR_ERRORS });
       dispatch({ type: STOP_LOADING });
       history.push('/');
@@ -52,31 +45,24 @@ export const registerUser = (userData: any, history: any) => (
       dispatch({ type: STOP_LOADING });
     });
 };
-//for fetching authenticated user information
-// export const getUserData = () => (dispatch: any) => {
-//   dispatch({ type: LOADING_USER });
-//   axios
-//     .get('/user')
-//     .then((res) => {
-//       console.log('user data', res.data);
-//       dispatch({
-//         type: SET_USER,
-//         payload: res.data
-//       });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
+// set token
+const setAuthorizationHeader = (token: string) => {
+  const Token = `Bearer ${token}`;
+  localStorage.setItem('Token', Token);
+  axios.defaults.headers.common['Authorization'] = Token;
+};
+
+// user logout
 export const logoutUser = () => (dispatch: any) => {
   localStorage.removeItem('token');
   delete axios.defaults.headers.common['Authorization'];
   dispatch({
     type: SET_UNAUTHENTICATED
   });
-  window.location.href = '/login'; //redirect to login page
+  window.location.href = '/login';
 };
 
+// get user location in coordinates
 export const getLocation = () => (dispatch: any) => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition((position: any) => {
@@ -89,10 +75,4 @@ export const getLocation = () => (dispatch: any) => {
   } else {
     alert('Location service is unavailable');
   }
-};
-
-const setAuthorizationHeader = (token: string) => {
-  const Token = `Bearer ${token}`;
-  localStorage.setItem('Token', Token);
-  axios.defaults.headers.common['Authorization'] = Token;
 };
