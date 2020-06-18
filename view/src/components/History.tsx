@@ -12,6 +12,7 @@ import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import dayjs from 'dayjs';
 import { getLocation } from '../redux/actions/userActions';
@@ -56,7 +57,7 @@ const History: React.FC = () => {
           Search History
           <hr />
         </Typography>
-
+        {histories.length < 1 && <Typography id="results-count">No Data</Typography>}
         <Paper id="search-history">
           <Card style={{ background: 'none' }}>
             <ul id="history-panel">
@@ -77,7 +78,7 @@ const History: React.FC = () => {
                       <div style={{ display: 'flex' }}>
                         <LocalHospitalIcon style={{ width: 35, height: 35, color: 'red' }} />
                         <div className="history-date">
-                          <span>{history.searchText} Hospital </span>
+                          <span>{history.searchText} </span>
                         </div>
                       </div>
                     </Card>

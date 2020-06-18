@@ -102,3 +102,20 @@ exports.login = (req, res) => {
 			}
 		});
 };
+
+exports.getAuthenticatedUser = (req, res) => {
+	db.doc(`/users/${req.user.email}`)
+		.get()
+		.then((doc) => {
+			let email;
+			if (doc.exists) {
+				email = doc.data().email;
+				return res.status(200).json(email);
+			} else {
+				return res.status(404).json({ general: 'User not found' });
+			}
+		})
+		.catch((err) => {
+			return res.status(500).json({ error: err.code });
+		});
+};

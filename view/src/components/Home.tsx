@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import '../assets/Home.css';
@@ -13,7 +13,6 @@ import Select from '@material-ui/core/Select/Select';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 
-import { getLocation } from '../redux/actions/userActions';
 import { getResult } from '../redux/actions/DataActions';
 
 interface RootState {
@@ -27,15 +26,12 @@ const Home: React.FC = () => {
   const latitude = useSelector((state: RootState) => state.user.coordinates.latitude);
   const longitude = useSelector((state: RootState) => state.user.coordinates.longitude);
   const dispatch = useDispatch();
-  
+
   const handleSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
     const data = { radius, type, searchText, latitude, longitude };
     dispatch(getResult(data));
   };
-  useEffect(() => {
-    dispatch(getLocation());
-  }, [dispatch]);
   return (
     <Grid container spacing={2} id="container">
       <Grid item xs={1} sm={1} md={1} lg={1} className="none"></Grid>

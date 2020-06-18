@@ -8,6 +8,7 @@ const resolverFunctions = {
 			return db
 				.collection('history')
 				.where('email', '==', `${email}`)
+				.orderBy('createdAt', 'desc')
 				.get()
 				.then((snapshot) => {
 					const docs = snapshot.empty

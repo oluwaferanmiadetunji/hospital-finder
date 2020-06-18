@@ -1,15 +1,15 @@
-import { SET_AUTHENTICATED, SET_UNAUTHENTICATED, SET_COORDINATES } from '../types';
+import { SET_UNAUTHENTICATED, SET_COORDINATES, SET_USER, LOADING_USER, SET_AUTHENTICATED } from '../types';
 const initialState = {
   authenticated: false,
   email: '',
-  coordinates: {}
+  coordinates: {},
+  loading: false
 };
 export default function (state = initialState, action: any) {
   switch (action.type) {
     case SET_AUTHENTICATED:
       return {
         ...state,
-        email: action.payload,
         authenticated: true
       };
     case SET_UNAUTHENTICATED:
@@ -18,6 +18,18 @@ export default function (state = initialState, action: any) {
       return {
         ...state,
         coordinates: { ...action.payload }
+      };
+    case SET_USER:
+      return {
+        ...state,
+        authenticated: true,
+        loading: false,
+        email: action.payload
+      };
+    case LOADING_USER:
+      return {
+        ...state,
+        loading: true
       };
     default:
       return state;

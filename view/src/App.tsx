@@ -1,54 +1,48 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { Suspense, useEffect } from 'react';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
-import jwtDecode from 'jwt-decode';
 // material UI
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Backdrop from '@material-ui/core/Backdrop';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import axios from 'axios';
-// redux
-import { Provider } from 'react-redux';
-import store from './redux/store';
-import { SET_AUTHENTICATED, SET_UNAUTHENTICATED } from './redux/types';
-import { logoutUser } from './redux/actions/userActions';
-import { BASE_URL, URI } from './constants';
+
+import { URI } from './constants';
 // routes
-import { AuthRoute, AuthRouteProps } from './routes/AuthRoute';
+import { AuthRoute } from './components/AuthRoute';
+import { getLocation } from './redux/actions/userActions';
 // load pages
 const Home = React.lazy(() => import('./components/Home'));
 const History = React.lazy(() => import('./components/History'));
 const Login = React.lazy(() => import('./components/Login'));
 const Register = React.lazy(() => import('./components/Register'));
 
-axios.defaults.baseURL = BASE_URL;
-const token = localStorage.Token;
-if (token) {
-  const decodedToken: any = jwtDecode(token);
-  if (decodedToken.exp * 1000 < Date.now()) {
-    store.dispatch(logoutUser());
-    store.dispatch({ type: SET_UNAUTHENTICATED });
-  } else {
-    store.dispatch({
-      type: SET_AUTHENTICATED
-    });
-    axios.defaults.headers.common['Authorization'] = token;
-  }
+interface RootState {
+  user: any;
 }
-const authenticated = store.getState().user.authenticated;
+
 const client = new ApolloClient({
   uri: URI
 });
-
-const defaultProtectedRouteProps: AuthRouteProps = {
-  isAuthenticated: authenticated,
-  authenticationPath: '/login'
-};
-
 const App: React.FC = () => {
+  const authenticated = useSelector((state: RootState) => state.user.authenticated);
+  const Props = {
+    isAuthenticated: authenticated,
+    authenticationPath: '/login'
+  };
+  const ProtectedRoutesProps = {
+    isAuthenticated: !authenticated,
+    authenticationPath: '/'
+  };
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getLocation());
+  }, []);
+
   return (
     <div id="app-container">
       <AppBar id="appBar" elevation={0}>
@@ -67,17 +61,14 @@ const App: React.FC = () => {
             </Backdrop>
           }
         >
-          <Provider store={store}>
-            <Switch>
-              <AuthRoute {...defaultProtectedRouteProps} exact={true} path="/" component={Home} />
-              <ApolloProvider client={client}>
-                <AuthRoute {...defaultProtectedRouteProps} exact={true} path="/history" component={History} />
-              </ApolloProvider>
-
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-            </Switch>
-          </Provider>
+          <Switch>
+            <AuthRoute {...Props} exact={true} path="/" component={Home} />
+            <AuthRoute {...ProtectedRoutesProps} path="/login" component={Login} />
+            <AuthRoute {...ProtectedRoutesProps} path="/register" component={Register} />
+            <ApolloProvider client={client}>
+              <AuthRoute {...Props} path="/history" component={History} />
+            </ApolloProvider>
+          </Switch>
         </Suspense>
       </Router>
     </div>

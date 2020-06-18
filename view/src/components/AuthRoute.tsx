@@ -15,6 +15,7 @@ export class AuthRoute extends Route<AuthRouteProps> {
 
     if (redirectPath) {
       const renderComponent = () => <Redirect to={{ pathname: redirectPath }} />;
+
       return <Route {...this.props} component={renderComponent} render={undefined} />;
     } else {
       return <Route {...this.props} />;

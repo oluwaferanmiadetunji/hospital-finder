@@ -18,7 +18,7 @@ export default function (state = initialState, action: any) {
     case ADD_HISTORY:
       return {
         ...state,
-        history: [...action.payload, ...state.history]
+        history: [action.payload, ...state.history]
       };
     default:
       return state;

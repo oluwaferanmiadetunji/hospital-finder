@@ -1,5 +1,5 @@
 //in useActions.ts file
-import { SET_AUTHENTICATED, SET_UNAUTHENTICATED, SET_ERRORS, LOADING, STOP_LOADING, CLEAR_ERRORS, SET_COORDINATES } from '../types';
+import { SET_UNAUTHENTICATED, SET_ERRORS, LOADING, STOP_LOADING, CLEAR_ERRORS, SET_COORDINATES, LOADING_USER, SET_USER } from '../types';
 import axios from 'axios';
 
 // user sign in
@@ -9,7 +9,7 @@ export const loginUser = (userData: any, history: any) => (dispatch: any) => {
     .post('/login', userData)
     .then((res) => {
       setAuthorizationHeader(res.data.token);
-      dispatch({ type: SET_AUTHENTICATED, payload: res.data.email });
+      dispatch(getUserData());
       dispatch({ type: CLEAR_ERRORS });
       dispatch({ type: STOP_LOADING });
       history.push('/');
@@ -31,7 +31,7 @@ export const registerUser = (userData: any, history: any) => (dispatch: any) => 
     .post('/signup', userData)
     .then((res) => {
       setAuthorizationHeader(res.data.token);
-      dispatch({ type: SET_AUTHENTICATED, payload: res.data.email });
+      dispatch(getUserData());
       dispatch({ type: CLEAR_ERRORS });
       dispatch({ type: STOP_LOADING });
       history.push('/');
@@ -59,7 +59,21 @@ export const logoutUser = () => (dispatch: any) => {
   dispatch({
     type: SET_UNAUTHENTICATED
   });
-  window.location.href = '/login';
+};
+
+export const getUserData = () => (dispatch: any) => {
+  dispatch({
+    type: LOADING_USER
+  });
+  axios
+    .get('/user')
+    .then((res) => {
+      dispatch({
+        type: SET_USER,
+        payload: res.data
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 // get user location in coordinates

@@ -37,6 +37,11 @@
 #search-type option {
   background: midnightblue;
 }
+#search-param {
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+}
 @media (max-width: 768px) {
   #search-panel {
     max-height: 40vh;
